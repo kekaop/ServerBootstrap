@@ -1,0 +1,10 @@
+name: ServerBootstrap
+version: '1.0-SNAPSHOT'
+main: dev.kekaop.ServerBootstrap.ServerBootstrap
+api-version: '1.21'
+prefix: ""
+
+commands:
+  setup-server:
+    usage: /setup-server <profile name from gitlab>
+    description: setup server from gitLab repository

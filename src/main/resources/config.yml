@@ -1,0 +1,15 @@
+first-install: false
+secret: "${secret}"
+port: 0000
+node-profile: "none"
+source:
+  provider: "gitlab" # gitlab | github
+  gitlab:
+    api-base: "https://gitlab.com/api/v4"
+    project-path-template: "your-group/your-projects/%s"
+    token: "${gitlab-token}"
+  github:
+    api-base: "https://api.github.com"
+    owner: "your-org"
+    repo-template: "%s"
+    token: "${github-token}"
