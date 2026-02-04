@@ -111,17 +111,7 @@ Content-Type: application/json
 
 ## Flow diagram (text)
 
-CI / Panel
-   ↓
-UpdateListener (HTTP)
-   ↓
-ServerBootstrap
-   ↓
-Artifact download
-   ↓
-Install
-   ↓
-Restart
+CI / Panel → UpdateListener (HTTP) → ServerBootstrap → Artifact download → Install → Restart
 
 ## Build
 
