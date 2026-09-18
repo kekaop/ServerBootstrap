@@ -45,7 +45,6 @@ New installations never start automatically on boot. An already requested mainte
 - [Commands, HTTP, offline installation, rollback, and troubleshooting](docs/en/OPERATIONS.md)
 - [World replacement without external programs](docs/en/MAINTENANCE.md)
 - [Migration from the original version](docs/en/MIGRATION.md)
-- [Original code audit](docs/en/AUDIT.md)
 - [Building and testing](docs/en/TESTING.md)
 - [Minecraft and Java compatibility](docs/en/COMPATIBILITY.md)
 - [Verification report](docs/en/VERIFICATION.md)

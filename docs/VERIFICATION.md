@@ -2,11 +2,10 @@
 
 Русский | [English](en/VERIFICATION.md)
 
-Локальная проверка выполнена 18 сентября 2026 на Windows. Та же матрица из пяти версий прошла на Linux в [GitHub Actions для f59592f](https://github.com/kekaop/ServerBootstrap/actions/runs/35341829364).
+Проверочная матрица выполняется на Windows и Linux через GitHub Actions.
 
-- Исходный проект: commit bdf63ba6f50986c057e569425dd9bd5ca5f3a511.
 - Gradle Wrapper 8.8, launcher JDK 21.
-- Production: Bukkit/Spigot API 1.20.1, --release 17.
+- Production bytecode: `--release 17`, compiled against Bukkit/Spigot API 1.20.1.
 - Полная матрица: API 1.20.1 / Java 17, 1.20.6 / Java 21, 1.21.11 / Java 21, 26.2 / Java 25, 26.3 / Java 25.
 - На каждой комбинации обеих платформ: 91 тест, 0 ошибок, 0 пропусков.
 - Maintenance: полная замена двух миров, сохранение backup, отказ при занятом session.lock/игнорировании level-name, проверка staging SHA, отмена, повтор, отложенная фиксация версии; ошибки и аварии до/после переименований и записи состояния.
@@ -14,6 +13,6 @@
 - Дополнительно проверен собранный offline-дистрибутив против локального HTTPS: check без применения, установка v1, обновление v2, отказ по неверной SHA с сохранением v2, recover.
 - Проверены сборка JAR/offline ZIP и безопасный разбор примеров конфигурации.
 
-Полные Minecraft/Paper-серверы не запускались. Матрица проверяет API и JVM; проверка offline-дистрибутива — реальную загрузку и изменения в отдельной тестовой директории. Production-серверы не затрагивались, релиз в GitHub не опубликован.
+Матрица проверяет API/JVM, а sandbox проверяет загрузку и изменения файлов в изолированном каталоге. Полный runtime smoke test Paper выполняется отдельно по процедуре из TESTING.md.
 
-XML/JSON из последнего локального прогона находятся в build/compatibility; в подготовленной поставке также приложен verification.zip с отчётами Windows/Linux. Подробный повторяемый порядок: TESTING.md.
+XML/JSON отчёты доступны в `build/compatibility`; повторяемый порядок описан в TESTING.md.

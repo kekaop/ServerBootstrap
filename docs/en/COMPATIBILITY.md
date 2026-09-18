@@ -28,7 +28,7 @@ The matrix runs the complete automated suite against versions of **Spigot API**,
 
 Production code always compiles against API 1.20.1. The matrix changes the test classpath API and test JVM. Results and test counts are in the [verification report](VERIFICATION.md). These are not full Minecraft/Paper launches or proof of behavior for every intermediate release or third-party plugin.
 
-The [Paper Downloads Service](https://docs.papermc.io/misc/downloads-service/) confirmed these builds: Paper 1.20.1 build 196 STABLE, 1.20.6 build 151 STABLE, 1.21.11 build 132 STABLE, 26.2 build 124 STABLE, and 26.3 build 16 ALPHA. Availability does not mean that a build was launched during verification.
+The matrix uses API artifacts for 1.20.1, 1.20.6, 1.21.11, 26.2, and 26.3. Paper 1.20.1, 1.20.6, 1.21.11, and 26.2 are available through stable channels, while Paper 26.3 may be alpha; check the status of the required build in the [Paper Downloads Service](https://docs.papermc.io/misc/downloads-service/) before deployment.
 
 ## Limitations
 

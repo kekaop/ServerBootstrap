@@ -28,7 +28,7 @@
 
 Production-код всегда компилируется против API 1.20.1; матрица меняет API тестового classpath и JVM. Результаты и число тестов — в [VERIFICATION.md](VERIFICATION.md). Это не полноценные запуски Minecraft/Paper и не доказательство поведения каждой промежуточной версии или каждого стороннего плагина.
 
-Через [Paper Downloads Service](https://docs.papermc.io/misc/downloads-service/) подтверждены сборки Paper 1.20.1 build 196 STABLE, 1.20.6 build 151 STABLE, 1.21.11 build 132 STABLE, 26.2 build 124 STABLE и 26.3 build 16 ALPHA. Наличие сборки не означает, что она запускалась в рамках проверки.
+Для матрицы использовались API-артефакты версий 1.20.1, 1.20.6, 1.21.11, 26.2 и 26.3. Paper 1.20.1, 1.20.6, 1.21.11 и 26.2 доступны в стабильных каналах, а Paper 26.3 может быть alpha; проверяйте статус нужной сборки в [Paper Downloads Service](https://docs.papermc.io/misc/downloads-service/) перед эксплуатацией.
 
 ## Ограничения
 

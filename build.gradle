@@ -36,7 +36,7 @@ tasks.register('offlineDist', Zip) {
     archiveClassifier = 'offline'
     into('lib') { from tasks.jar; from configurations.offlineRuntime }
     from('scripts/offline.cmd', 'scripts/offline.sh')
-    from('docs/OPERATIONS.md')
+    from('docs/OPERATIONS.md', 'docs/en/OPERATIONS.md')
 }
 tasks.named('assemble') { dependsOn 'offlineDist' }
 

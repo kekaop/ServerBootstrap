@@ -10,7 +10,6 @@
 - `maintenance-status`, `maintenance-retry`, and `maintenance-cancel` commands; no automatic retry loop after failure.
 - Interrupted direct transactions require offline recovery: ordinary `onLoad` runs after main-world metadata has already been read.
 - Tests for the maintenance lifecycle, failures between directory renames, and preservation of operating system locks.
-
 ## 2.0.0
 
 - Shared artifact handling for GitHub, GitLab, HTTPS, Google Drive, and direct release ZIP assets.
@@ -24,5 +23,3 @@
 - A separate offline tool; refusal to modify loaded worlds or apply files while players are online.
 - Bukkit API 1.20.1 and Java 17 bytecode, with API compatibility tests through 26.3 on Java 25.
 - Migration documentation and tests for network errors, archives, secret handling, and transactions.
-
-No GitHub Release has been published.

@@ -43,7 +43,6 @@
 - [Команды, HTTP, offline-установка, откат и диагностика](docs/OPERATIONS.md)
 - [Замена миров без внешних программ](docs/MAINTENANCE.md)
 - [Миграция с исходной версии](docs/MIGRATION.md)
-- [Аудит исходного кода](docs/AUDIT.md)
 - [Сборка и тестовая среда](docs/TESTING.md)
 - [Версии Minecraft и Java](docs/COMPATIBILITY.md)
 - [Отчёт проверки](docs/VERIFICATION.md)
