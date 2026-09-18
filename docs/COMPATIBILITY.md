@@ -1,5 +1,7 @@
 # Совместимость Minecraft и Java
 
+Русский | [English](en/COMPATIBILITY.md)
+
 Плагин использует публичный Bukkit/Spigot API 1.20.1, без NMS, CraftBukkit internals, MiniMessage и прямых Adventure API. plugin.yml объявляет api-version: 1.20, а классы имеют major version 61 (Java 17). Один и тот же production-JAR предназначен для всего диапазона.
 
 | Ветка Minecraft Java | Java для сервера | Поддержка |
@@ -18,7 +20,7 @@
 
 | Test API | JVM тестов | Проверки |
 |---|---|---|
-| 1.20.1-R0.1-SNAPSHOT | 17 | Конфигурация, источники, TLS/HTTP, архивы, транзакции, разрешения, дескриптор |
+| 1.20.1-R0.1-SNAPSHOT | 17 | Конфигурация, источники, TLS/HTTP, архивы, транзакции, maintenance, блокировки, разрешения, дескриптор |
 | 1.20.6-R0.1-SNAPSHOT | 21 | Тот же набор |
 | 1.21.11-R0.1-SNAPSHOT | 21 | Тот же набор |
 | 26.2-R0.1-SNAPSHOT | 25 | Тот же набор |

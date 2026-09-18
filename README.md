@@ -1,5 +1,7 @@
 # ServerBootstrap 2.1
 
+Русский | [English](README.en.md)
+
 Установка и обновление Minecraft-сервера по ZIP-профилям с проверкой SHA-256, ограничениями размера, журналом изменений и откатом.
 
 Целевой диапазон — **Paper/Spigot 1.20.1–1.21.11, 26.1.x, 26.2 и 26.3**. Один JAR, Bukkit API 1.20.1, байткод Java 17; Java для запуска определяется версией серверного ядра. Для Paper 26.1+ нужна Java 25. Статус проверок и ограничения 26.3: [совместимость](docs/COMPATIBILITY.md).
@@ -44,6 +46,7 @@
 - [Аудит исходного кода](docs/AUDIT.md)
 - [Сборка и тестовая среда](docs/TESTING.md)
 - [Версии Minecraft и Java](docs/COMPATIBILITY.md)
+- [Отчёт проверки](docs/VERIFICATION.md)
 - [Изменения 2.1](CHANGELOG.md)
 
 ## Сборка

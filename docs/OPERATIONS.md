@@ -1,5 +1,7 @@
 # Эксплуатация
 
+Русский | [English](en/OPERATIONS.md)
+
 ## Команды и разрешения
 
 | Команда | Действие |
@@ -83,7 +85,7 @@ curl --header "Authorization: Bearer $SERVERBOOTSTRAP_HTTP_TOKEN" http://127.0.0
 | 409 | Узел не привязан, операция уже выполняется, ожидается restart/восстановление или профиль недоступен |
 | 413 | Передано тело запроса или Transfer-Encoding |
 
-Пример ответа: `{"status":"accepted","operation":"UUID"}`. Фазы: QUEUED, DOWNLOADING, VERIFYING, APPLYING, CHECKED, SUCCEEDED, FAILED, RESTART_REQUIRED. GET /status после перезапуска начинается с IDLE; установленная версия сохранена в installed.properties. История доступна в серверном журнале и каталоге transactions.
+Пример ответа: `{"status":"accepted","operation":"UUID"}`. Фазы direct: QUEUED, DOWNLOADING, VERIFYING, APPLYING, CHECKED, SUCCEEDED, FAILED, RESTART_REQUIRED. Подготовка maintenance может вернуть WAITING_FOR_MAINTENANCE; последующие сохранённые фазы и команды восстановления описаны в [MAINTENANCE.md](MAINTENANCE.md). GET /status после обычного перезапуска начинается с IDLE; установленная версия сохранена в installed.properties. История доступна в серверном журнале и каталоге transactions.
 
 Listener — обычный HTTP на loopback, без собственного TLS. Для внешнего доступа используйте HTTPS reverse proxy, firewall/allowlist CI, ограничение частоты запросов и таймауты клиента на proxy. Включение bind=0.0.0.0 открывает порт на всех IPv4-интерфейсах; не передавайте секрет через открытую сеть без TLS. Не публикуйте этот порт напрямую. Настройте скрытие Authorization в логах proxy. HTTP не обязателен для команд и offline-установки.
 

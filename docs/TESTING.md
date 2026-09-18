@@ -1,5 +1,7 @@
 # Сборка и тестирование
 
+Русский | [English](en/TESTING.md)
+
 ## Локальная сборка
 
 Нужны Git, JDK 17/21 и доступ к Maven Central, Spigot snapshots и Gradle distributions. Wrapper включён в репозиторий, отдельный Gradle не нужен.
