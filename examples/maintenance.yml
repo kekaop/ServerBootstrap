@@ -1,0 +1,17 @@
+# Replace URL and SHA-256 with a complete, stopped-server world snapshot.
+# For the Paper 26.1+ directory layout, keep only world in worlds/include/required-files.
+config-version: 1
+profiles:
+  lobby:
+    source:
+      type: https
+      url: https://example.org/lobby-worlds-v1.zip
+    version: "v1"
+    sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+    archive-root: "."
+    apply:
+      mode: maintenance
+      worlds: [world, world_nether, world_the_end]
+      include: [world, world_nether, world_the_end]
+      required-files: [world/level.dat, world_nether/level.dat, world_the_end/level.dat]
+    restart: true

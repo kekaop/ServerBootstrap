@@ -1,0 +1,42 @@
+# Replace YOUR_* and example.org with your own repository/artifact.
+# This is a valid configuration template; it is not a deployed public profile.
+config-version: 1
+limits:
+  max-download-bytes: 268435456
+  max-extracted-bytes: 1073741824
+  max-entries: 10000
+  connect-timeout-seconds: 15
+  download-timeout-seconds: 180
+listener:
+  enabled: false
+  bind: "127.0.0.1"
+  port: 8080
+  # token-env: SERVERBOOTSTRAP_HTTP_TOKEN
+profiles:
+  lobby:
+    source:
+      type: github
+      mode: repository
+      url: https://github.com/YOUR_ORG/server-lobby
+      ref: "v1.0.0"
+      # auth:
+      #   token-env: GITHUB_TOKEN
+    version: "1.0.0"
+    # Fill in the SHA-256 of the exact downloaded ZIP before production use.
+    sha256: ""
+    archive-root: auto
+    apply:
+      include: [plugins, config, server.properties]
+      required-files: [plugins/ExamplePlugin/config.yml]
+    restart: true
+  direct-demo:
+    source:
+      type: https
+      url: https://downloads.example.org/direct-demo-v1.zip
+    version: "v1"
+    sha256: ""
+    archive-root: "."
+    apply:
+      include: [plugins]
+      required-files: [plugins/Demo/config.yml]
+    restart: false

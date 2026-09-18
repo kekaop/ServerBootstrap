@@ -1,126 +1,65 @@
-# ServerBootstrap
+# ServerBootstrap 2.1
 
-ServerBootstrap is designed for clustered Minecraft setups with multiple identical servers.
-It automates first-time provisioning and deterministic updates using profile-based deployments.
-This makes it a strict, repeatable bootstrap and lifecycle tool rather than a general updater.
+Установка и обновление Minecraft-сервера по ZIP-профилям с проверкой SHA-256, ограничениями размера, журналом изменений и откатом.
 
-## Features
+Целевой диапазон — **Paper/Spigot 1.20.1–1.21.11, 26.1.x, 26.2 и 26.3**. Один JAR, Bukkit API 1.20.1, байткод Java 17; Java для запуска определяется версией серверного ядра. Для Paper 26.1+ нужна Java 25. Статус проверок и ограничения 26.3: [совместимость](docs/COMPATIBILITY.md).
 
-- Choose GitLab or GitHub as the source provider
-- Download and install a profile ZIP
-- Update worlds and plugins from the profile
-- Lightweight HTTP listener for remote update triggers
+## Возможности
 
-## What is a profile?
+- GitHub и GitLab: архив репозитория по ref или прямой ZIP-asset релиза.
+- Прямой HTTPS и Google Drive, если ссылка отдаёт ZIP без входа и подтверждений.
+- Проверка конфигурации при запуске; проверка источника без применения файлов.
+- SHA-256, CRC ZIP, ограничения загрузки/распаковки/количества записей, защита путей.
+- Резервные копии, атомарная замена каждого файла, откат при ошибке, восстановление незавершённой транзакции.
+- Сохранение привязки узла и версии только после успешного применения.
+- Консольные команды, отдельное административное permission, необязательный HTTP API.
+- Отдельная offline-утилита для остановленного сервера, включая установку миров.
+- Замена миров на обычном хостинге силами плагина: служебный мир, две остановки/запуска, полная резервная копия прежних миров.
 
-A profile is a ZIP archive that represents a complete server state:
+## Быстрый старт
 
-- plugins
-- configs
-- optional worlds
+1. Сделайте резервную копию сервера. Поместите `ServerBootstrap-2.1.0.jar` в `plugins/`.
+2. Запустите и остановите сервер: появится `plugins/ServerBootstrap/config.yml`.
+3. Добавьте профиль из [examples/config.yml](examples/config.yml), заменив адрес и SHA-256 данными вашего артефакта.
+4. Запустите сервер и выполните из консоли:
+   ```text
+   serverbootstrap check lobby
+   setup-server lobby
+   serverbootstrap current
+   serverbootstrap status
+   ```
+5. Для следующей версии измените ref/URL, version и SHA-256, перезапустите сервер, затем выполните `serverbootstrap update`.
 
-Each server node is permanently bound to a single profile.
+Новая установка не запускается автоматически при старте. Ранее подтверждённая операция maintenance продолжается по сохранённому журналу. Конфигурация по умолчанию содержит пустой список профилей, HTTP отключён.
 
-## Lifecycle
+`check` скачивает и полностью проверяет архив, формирует список изменений и проверяет целевые пути, но не изменяет файлы установки и привязку узла. Для миров на хостинге используйте [maintenance-режим](docs/MAINTENANCE.md): внешние программы и restart-script ему не нужны. Для замены конфигураций активных плагинов также рекомендуется offline-режим.
 
-### First install (bootstrap)
+## Документация
 
-- Performed only once
-- Binds the server to a profile
-- Downloads and installs the initial server state
+- [Все поля конфигурации и структура ZIP](docs/CONFIGURATION.md)
+- [Источники, релизы, токены, Google Drive](docs/SOURCES.md)
+- [Команды, HTTP, offline-установка, откат и диагностика](docs/OPERATIONS.md)
+- [Замена миров без внешних программ](docs/MAINTENANCE.md)
+- [Миграция с исходной версии](docs/MIGRATION.md)
+- [Аудит исходного кода](docs/AUDIT.md)
+- [Сборка и тестовая среда](docs/TESTING.md)
+- [Версии Minecraft и Java](docs/COMPATIBILITY.md)
+- [Изменения 2.1](CHANGELOG.md)
 
-### Updates
+## Сборка
 
-- Triggered via HTTP or CI
-- Always reuse the stored `node-profile`
-- Deterministic and repeatable
+Используйте JDK 17 или 21 для Gradle 8.8:
 
-## How it works
-
-1. You run `/setup-server <profile>` from the console.
-2. The plugin validates the profile exists on the selected provider (GitLab/GitHub).
-3. The profile archive is downloaded as a ZIP into the server `plugins/` directory.
-4. The ZIP is extracted into a temporary folder (`update_temp`).
-5. Files are copied into the server root:
-   - `plugins/` directory from the profile overwrites existing plugins.
-   - Worlds (`world`, `world_nether`, `world_the_end`) are copied if present.
-   - The plugin skips copying `ServerBootstrap.jar` (to avoid replacing itself).
-6. The temporary folder is deleted.
-7. The plugin updates `node-profile`, marks `first-install` as `true`,
-   writes `nodeName` into `plugins/NodeMetrics/config.yml` (if installed),
-   and restarts the server.
-
-## Non-goals
-
-- Not intended for single-server setups
-- No partial updates
-- No per-file syncing
-- No dynamic profile switching at runtime
-
-## Commands
-
-- `/setup-server <profile>` (console only)
-
-## Configuration
-
-Edit `src/main/resources/config.yml` (or the generated `plugins/ServerBootstrap/config.yml`):
-
-```
-first-install: false
-secret: "change-me"
-port: 8080
-node-profile: "none"
-source:
-  provider: "gitlab" # gitlab | github
-  gitlab:
-    api-base: "https://gitlab.com/api/v4"
-    project-path-template: "your-group/your-projects/%s"
-    token: "your-gitlab-token"
-  github:
-    api-base: "https://api.github.com"
-    owner: "your-org"
-    repo-template: "%s"
-    token: "your-github-token"
+```sh
+./gradlew clean build
 ```
 
-### Provider notes
+Windows: `gradlew.bat clean build`. Результаты: `build/libs/ServerBootstrap-2.1.0.jar` и `build/distributions/ServerBootstrap-2.1.0-offline.zip`. Gradle 8.8 не запускается на JDK 25; тестирование под Java 25 выполняется отдельным процессом, см. инструкцию тестирования.
 
-- **GitLab** uses `project-path-template`, for example `my-group/prod/%s`.
-- **GitHub** uses `owner` + `repo-template`, for example `owner: my-org` and `repo-template: "%s"`.
-- Tokens are optional for public repos/projects but recommended to avoid rate limits.
+## Границы гарантий
 
-## UpdateListener
+Архив — доверенный код и конфигурация администратора: загружаемый плагин способен выполнять произвольный код на сервере. SHA-256 проверяет соответствие ожидаемому артефакту, но не заменяет проверку его происхождения.
 
-`UpdateListener` starts a lightweight HTTP server and listens for update requests.
-It is useful for triggering a profile update remotely (for example, from a panel or CI).
+В режиме direct отсутствующие файлы сохраняются. Явный режим maintenance заменяет перечисленные каталоги миров целиком, сохраняя прежние каталоги в backup. Нет переключения привязанного профиля, hot-reload плагинов, обновления серверного ядра, конвертации миров между версиями, оркестрации, панели или поддержки Folia. Файлы самого ServerBootstrap и NodeMetrics защищены от содержимого архива.
 
-- Listens on the configured `port`
-- Accepts `POST /update` with JSON body `{ "secret": "..." }`
-- Validates the `secret` from `config.yml`
-- Starts the download and install process for the configured `node-profile`
-- Returns JSON response `{ "status": "update-started" }` on success
-
-Example request:
-
-```
-POST http://<server-ip>:<port>/update
-Content-Type: application/json
-
-{ "secret": "change-me" }
-```
-
-## Flow diagram (text)
-
-CI / Panel → UpdateListener (HTTP) → ServerBootstrap → Artifact download → Install → Restart
-
-## Build
-
-```
-./gradlew build
-```
-
-## Run a test server
-
-```
-./gradlew runServer
-```
+Транзакция обеспечивает резервные копии и восстановление файлов, но не изоляцию от посторонних процессов записи и не единую атомарную замену всего сервера. Для наиболее предсказуемого результата остановите сервер и используйте offline-режим. Подробнее — в разделе эксплуатации.

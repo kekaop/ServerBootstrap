@@ -1,15 +1,17 @@
-first-install: false
-secret: "${secret}"
-port: 0000
-node-profile: "none"
-source:
-  provider: "gitlab" # gitlab | github
-  gitlab:
-    api-base: "https://gitlab.com/api/v4"
-    project-path-template: "your-group/your-projects/%s"
-    token: "${gitlab-token}"
-  github:
-    api-base: "https://api.github.com"
-    owner: "your-org"
-    repo-template: "%s"
-    token: "${github-token}"
+config-version: 1
+limits:
+  max-download-bytes: 268435456
+  max-extracted-bytes: 1073741824
+  max-entries: 10000
+  connect-timeout-seconds: 15
+  download-timeout-seconds: 180
+listener:
+  enabled: false
+  bind: "127.0.0.1"
+  port: 8080
+  # Set token-env only when the variable exists in the server process environment.
+  # token-env: SERVERBOOTSTRAP_HTTP_TOKEN
+
+# See docs/CONFIGURATION.md and examples/config.yml. New installations require a command.
+# World replacement without external tools: docs/MAINTENANCE.md and examples/maintenance.yml.
+profiles: {}
